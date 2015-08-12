@@ -16,6 +16,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let path = documentsDirectory()
+        println(path)
+        
+        if let filesNames = NSFileManager.defaultManager().contentsAtPath(path) {
+            
+        } else {
+            NSFileManager.defaultManager().createDirectoryAtPath("\(path)/卧虎藏龙", withIntermediateDirectories: false, attributes: nil, error: nil)
+            NSFileManager.defaultManager().createDirectoryAtPath("\(path)/卧虎藏龙/副本", withIntermediateDirectories: false, attributes: nil, error: nil)
+            NSFileManager.defaultManager().createDirectoryAtPath("\(path)/自由之战", withIntermediateDirectories: false, attributes: nil, error: nil)
+            NSFileManager.defaultManager().createDirectoryAtPath("\(path)/自由之战/英雄", withIntermediateDirectories: false, attributes: nil, error: nil)
+            
+            NSFileManager.defaultManager().createFileAtPath("\(path)/test.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/初始化.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/切号.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/副本/20级.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/副本/30级.lua", contents: nil, attributes: nil)
+            
+            NSFileManager.defaultManager().createFileAtPath("\(path)/自由之战/初始化.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/自由之战/创建英雄.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/自由之战/英雄/死亡骑士.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/自由之战/英雄/山丘之王.lua", contents: nil, attributes: nil)
+        }
+        
         return true
     }
 
@@ -40,7 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as! [String]
+        
+        return paths[0]
+    }
 }
 

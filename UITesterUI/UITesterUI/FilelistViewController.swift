@@ -9,7 +9,16 @@
 import UIKit
 
 class FilelistViewController: UITableViewController {
-
+    var currentPath = ""
+    var contentsOfDir = [(String, String)]()
+    
+    required init (coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        currentPath = documentsDirectory()
+        contentsOfDir = FileInspector.sharedInstance(currentPath).contentsAtPath()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +27,12 @@ class FilelistViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        contentsOfDir = FileInspector.sharedInstance(currentPath).contentsAtPath()
+        
+        for (name, type) in contentsOfDir {
+            println("\(name) : \(type)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,19 +51,22 @@ class FilelistViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 2
+        return contentsOfDir.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell
-        if 0 == indexPath.row {
+        
+        let item = contentsOfDir[indexPath.row]
+        if "Dir" == item.1 {
             cell = tableView.dequeueReusableCellWithIdentifier("FilelistItemDir", forIndexPath: indexPath) as! UITableViewCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("FilelistItemFile", forIndexPath: indexPath) as! UITableViewCell
         }
         
         // Configure the cell...
+        cell.textLabel?.text = item.0
 
         return cell
     }
@@ -98,5 +116,11 @@ class FilelistViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as! [String]
+        
+        return paths[0]
+    }
 
 }

@@ -13,6 +13,7 @@
 		752511231B79DFC700A924A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 752511211B79DFC700A924A0 /* LaunchScreen.xib */; };
 		7525112F1B79DFC700A924A0 /* UITesterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7525112E1B79DFC700A924A0 /* UITesterUITests.swift */; };
 		7525113B1B79E46000A924A0 /* FilelistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7525113A1B79E46000A924A0 /* FilelistViewController.swift */; };
+		7525113D1B79E85000A924A0 /* FileInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7525113C1B79E85000A924A0 /* FileInspector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		7525112D1B79DFC700A924A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7525112E1B79DFC700A924A0 /* UITesterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITesterUITests.swift; sourceTree = "<group>"; };
 		7525113A1B79E46000A924A0 /* FilelistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilelistViewController.swift; sourceTree = "<group>"; };
+		7525113C1B79E85000A924A0 /* FileInspector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				752511181B79DFC700A924A0 /* AppDelegate.swift */,
 				7525113A1B79E46000A924A0 /* FilelistViewController.swift */,
+				7525113C1B79E85000A924A0 /* FileInspector.swift */,
 				7525111C1B79DFC700A924A0 /* Main.storyboard */,
 				7525111F1B79DFC700A924A0 /* Images.xcassets */,
 				752511211B79DFC700A924A0 /* LaunchScreen.xib */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7525113B1B79E46000A924A0 /* FilelistViewController.swift in Sources */,
+				7525113D1B79E85000A924A0 /* FileInspector.swift in Sources */,
 				752511191B79DFC700A924A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
