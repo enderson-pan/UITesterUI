@@ -11,8 +11,12 @@ import UIKit
 class FilelistViewController: UITableViewController {
     var currentPath = ""
     var contentsOfDir = [(String, String)]()
+    static var fileToBeRunning : String?
     
     @IBOutlet weak var headerView: UILabel!
+    @IBOutlet weak var footerView: UILabel!
+    
+    let headerViewPrefix = "将要运行的脚本: "
     
     required init (coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,14 +33,21 @@ class FilelistViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+       
         let showPath = currentPath as NSString
         title = showPath.lastPathComponent
-        headerView.text = currentPath
+        footerView.text = currentPath
+        headerView.text = headerViewPrefix
         contentsOfDir = FileInspector.sharedInstance(currentPath).contentsAtPath()
         
         // Don't show the blank cell
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        //tableView.tableFooterView = UIView(frame: CGRectZero)
         
+        if let fileName = FilelistViewController.fileToBeRunning {
+            headerView.text = fileName
+        }
+        
+        // For debug
         for (name, type) in contentsOfDir {
             println("\(name) : \(type)")
         }
@@ -73,19 +84,22 @@ class FilelistViewController: UITableViewController {
         }
         
         // Configure the cell...
-        cell.textLabel?.text = item.0
+        configureTextForCell(cell, withItem: item)
 
         return cell
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
+        if "Dir" == contentsOfDir[indexPath.row].1 {
+            return false
+        }
         return true
     }
-    */
+    
 
     /*
     // Override to support editing the table view.
@@ -130,12 +144,44 @@ class FilelistViewController: UITableViewController {
         }
     }
     
+    // MARK: - TOUCH
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            let item = contentsOfDir[indexPath.row]
+            if "File" == item.1 {
+                toggleCurrentRunnigFileForCell(cell, withItem: item)
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    // MARK: - HELPER
     
     func documentsDirectory() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as! [String]
         
         return paths[0]
     }
-
+    
+    func configureTextForCell(cell: UITableViewCell, withItem item: (String, String)) {
+        if "Dir" == item.1 {
+            cell.textLabel?.text = item.0
+        } else if "File" == item.1 {
+            let label = cell.viewWithTag(1000) as! UILabel
+            label.text = item.0
+        }
+    }
+    
+    func toggleCurrentRunnigFileForCell(cell: UITableViewCell, withItem item: (String, String)) {
+        let fullPath = "\(currentPath)/\(item.0)"
+        if nil == FilelistViewController.fileToBeRunning {
+            FilelistViewController.fileToBeRunning = fullPath
+            headerView.text = headerViewPrefix + FilelistViewController.fileToBeRunning!
+        } else {
+            FilelistViewController.fileToBeRunning = nil
+            headerView.text = headerViewPrefix
+        }
+    }
 }
