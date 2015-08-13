@@ -27,9 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSFileManager.defaultManager().createDirectoryAtPath("\(path)/自由之战", withIntermediateDirectories: false, attributes: nil, error: nil)
             NSFileManager.defaultManager().createDirectoryAtPath("\(path)/自由之战/英雄", withIntermediateDirectories: false, attributes: nil, error: nil)
             
+            NSFileManager.defaultManager().createFileAtPath("\(path)/test4.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/test3.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/test2.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/test1.lua", contents: nil, attributes: nil)
             NSFileManager.defaultManager().createFileAtPath("\(path)/test.lua", contents: nil, attributes: nil)
             NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/初始化.lua", contents: nil, attributes: nil)
             NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/切号.lua", contents: nil, attributes: nil)
+            NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/副本/40级.lua", contents: nil, attributes: nil)
             NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/副本/20级.lua", contents: nil, attributes: nil)
             NSFileManager.defaultManager().createFileAtPath("\(path)/卧虎藏龙/副本/30级.lua", contents: nil, attributes: nil)
             

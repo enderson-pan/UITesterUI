@@ -12,6 +12,8 @@ class FilelistViewController: UITableViewController {
     var currentPath = ""
     var contentsOfDir = [(String, String)]()
     
+    @IBOutlet weak var headerView: UILabel!
+    
     required init (coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -27,8 +29,13 @@ class FilelistViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+        let showPath = currentPath as NSString
+        title = showPath.lastPathComponent
+        headerView.text = currentPath
         contentsOfDir = FileInspector.sharedInstance(currentPath).contentsAtPath()
+        
+        // Don't show the blank cell
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         
         for (name, type) in contentsOfDir {
             println("\(name) : \(type)")
@@ -107,15 +114,23 @@ class FilelistViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if "ListDir" == segue.identifier {
+            let controller = segue.destinationViewController as! FilelistViewController
+            if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                let dir = contentsOfDir[indexPath.row].0
+                controller.currentPath = "\(currentPath)/\(dir)"
+            }
+        }
     }
-    */
+    
+    
     
     func documentsDirectory() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as! [String]
